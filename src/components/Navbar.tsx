@@ -34,7 +34,7 @@ const Navbar = () => {
       >
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
           <a href="#home" className="flex items-center gap-2 text-white text-2xl font-bold">
-            <img src="/lovable-uploads/c3f70f23-d43f-44d8-9fd9-c116c7799062.png" alt="iAxionix" className="w-10 h-10" />
+            <img src="/lovable-uploads/98b90f99-ca61-4336-96d3-8787947f2252.png" alt="iAxionix" className="w-10 h-10" />
           </a>
           
           <div className="hidden md:flex items-center space-x-8">
