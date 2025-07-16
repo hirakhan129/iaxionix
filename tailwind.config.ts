@@ -63,10 +63,10 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				techGreen: '#32CD32',
+				techPurple: '#B846DB',
 				techBlack: '#000000',
 				techGray: '#E0E0E0',
-				techDarkGreen: '#1A3C34'
+				techDarkPurple: '#8B30D1'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -101,7 +101,7 @@ export default {
 				'fade-in': 'fade-in 0.5s ease-out'
 			},
 			backgroundImage: {
-				'hero-gradient': 'linear-gradient(135deg, #000000, #1A3C34)'
+				'hero-gradient': 'linear-gradient(135deg, #000000, #8B30D1)'
 			}
 		}
 	},

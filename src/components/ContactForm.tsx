@@ -56,7 +56,7 @@ const ContactForm = () => {
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            className="w-full bg-black/40 border border-techGreen/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techGreen transition-colors"
+            className="w-full bg-black/40 border border-techPurple/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techPurple transition-colors"
             required
           />
         </div>
@@ -69,7 +69,7 @@ const ContactForm = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full bg-black/40 border border-techGreen/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techGreen transition-colors"
+            className="w-full bg-black/40 border border-techPurple/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techPurple transition-colors"
             required
           />
         </div>
@@ -82,7 +82,7 @@ const ContactForm = () => {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full bg-black/40 border border-techGreen/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techGreen transition-colors"
+            className="w-full bg-black/40 border border-techPurple/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techPurple transition-colors"
           />
         </div>
 
@@ -93,7 +93,7 @@ const ContactForm = () => {
             name="service"
             value={formData.service}
             onChange={handleChange}
-            className="w-full bg-black/40 border border-techGreen/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techGreen transition-colors"
+            className="w-full bg-black/40 border border-techPurple/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techPurple transition-colors"
             required
           >
             <option value="">Select a service</option>
@@ -114,10 +114,10 @@ const ContactForm = () => {
               name="meetingDate"
               value={formData.meetingDate}
               onChange={handleChange}
-              className="w-full bg-black/40 border border-techGreen/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techGreen transition-colors"
+              className="w-full bg-black/40 border border-techPurple/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techPurple transition-colors"
               required
             />
-            <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 text-techGreen/70" size={20} />
+            <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 text-techPurple/70" size={20} />
           </div>
         </div>
 
@@ -129,14 +129,14 @@ const ContactForm = () => {
             value={formData.message}
             onChange={handleChange}
             rows={4}
-            className="w-full bg-black/40 border border-techGreen/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techGreen transition-colors"
+            className="w-full bg-black/40 border border-techPurple/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techPurple transition-colors"
             placeholder="Tell us about your project..."
             required
           />
         </div>
       </div>
 
-      <Button type="submit" className="w-full mt-6 bg-techGreen hover:bg-techDarkGreen text-black font-medium">
+      <Button type="submit" className="w-full mt-6 bg-techPurple hover:bg-techDarkPurple text-white font-medium">
         Send Message <Send size={18} className="ml-2" />
       </Button>
     </form>

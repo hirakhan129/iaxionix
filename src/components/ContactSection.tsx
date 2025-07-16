@@ -43,7 +43,7 @@ const ContactSection = () => {
             {/* Left Card - Select Date & Time */}
             <div className="glass-morphism rounded-2xl p-8">
               <div className="flex items-center gap-3 mb-6">
-                <Calendar className="text-techGreen" size={24} />
+                <Calendar className="text-techPurple" size={24} />
                 <h3 className="text-2xl font-bold text-white">Select Date & Time</h3>
               </div>
               
@@ -55,7 +55,7 @@ const ContactSection = () => {
                     id="meeting-date"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-full bg-black/40 border border-techGreen/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techGreen transition-colors"
+                    className="w-full bg-black/40 border border-techPurple/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techPurple transition-colors"
                     required
                   />
                 </div>
@@ -68,10 +68,10 @@ const ContactSection = () => {
                     <button
                       key={time}
                       className={cn(
-                        "py-2 px-4 rounded-md border border-techGreen/30 transition-colors",
+                        "py-2 px-4 rounded-md border border-techPurple/30 transition-colors",
                         selectedTimeSlot === time
-                          ? "bg-techGreen text-black font-medium"
-                          : "bg-black/40 text-white hover:border-techGreen"
+                          ? "bg-techPurple text-white font-medium"
+                          : "bg-black/40 text-white hover:border-techPurple"
                       )}
                       onClick={() => setSelectedTimeSlot(time)}
                     >
@@ -85,7 +85,7 @@ const ContactSection = () => {
             {/* Right Card - Meeting Details */}
             <div className="glass-morphism rounded-2xl p-8">
               <div className="flex items-center gap-3 mb-6">
-                <Phone className="text-techGreen" size={24} />
+                <Phone className="text-techPurple" size={24} />
                 <h3 className="text-2xl font-bold text-white">Meeting Details</h3>
               </div>
 
@@ -94,14 +94,14 @@ const ContactSection = () => {
                   className={cn(
                     "p-4 rounded-md border transition-colors cursor-pointer flex items-start gap-4",
                     meetingType === 'video' 
-                      ? "border-techGreen bg-techGreen/10" 
-                      : "border-techGreen/30 bg-black/40 hover:border-techGreen/50"
+                      ? "border-techPurple bg-techPurple/10" 
+                      : "border-techPurple/30 bg-black/40 hover:border-techPurple/50"
                   )}
                   onClick={() => setMeetingType('video')}
                 >
-                  <Video size={24} className={meetingType === 'video' ? "text-techGreen" : "text-techGray"} />
+                  <Video size={24} className={meetingType === 'video' ? "text-techPurple" : "text-techGray"} />
                   <div>
-                    <h4 className={cn("font-medium", meetingType === 'video' ? "text-techGreen" : "text-white")}>Video Call</h4>
+                    <h4 className={cn("font-medium", meetingType === 'video' ? "text-techPurple" : "text-white")}>Video Call</h4>
                     <p className="text-techGray text-sm">Meet via Google Meet or Zoom</p>
                   </div>
                 </div>
@@ -110,14 +110,14 @@ const ContactSection = () => {
                   className={cn(
                     "p-4 rounded-md border transition-colors cursor-pointer flex items-start gap-4",
                     meetingType === 'phone' 
-                      ? "border-techGreen bg-techGreen/10" 
-                      : "border-techGreen/30 bg-black/40 hover:border-techGreen/50"
+                      ? "border-techPurple bg-techPurple/10" 
+                      : "border-techPurple/30 bg-black/40 hover:border-techPurple/50"
                   )}
                   onClick={() => setMeetingType('phone')}
                 >
-                  <Phone size={24} className={meetingType === 'phone' ? "text-techGreen" : "text-techGray"} />
+                  <Phone size={24} className={meetingType === 'phone' ? "text-techPurple" : "text-techGray"} />
                   <div>
-                    <h4 className={cn("font-medium", meetingType === 'phone' ? "text-techGreen" : "text-white")}>Phone Call</h4>
+                    <h4 className={cn("font-medium", meetingType === 'phone' ? "text-techPurple" : "text-white")}>Phone Call</h4>
                     <p className="text-techGray text-sm">Traditional phone consultation</p>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ const ContactSection = () => {
               <Button 
                 onClick={handleScheduleMeeting}
                 disabled={!selectedDate || !selectedTimeSlot}
-                className="w-full bg-gradient-to-r from-techGreen to-techDarkGreen hover:opacity-90 text-black font-medium"
+                className="w-full bg-gradient-to-r from-techPurple to-techDarkPurple hover:opacity-90 text-white font-medium"
               >
                 Schedule Meeting
               </Button>
@@ -140,19 +140,19 @@ const ContactSection = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="glass-morphism rounded-2xl p-6 flex flex-col items-center text-center">
-              <Mail className="text-techGreen mb-4" size={32} />
+              <Mail className="text-techPurple mb-4" size={32} />
               <h4 className="text-white text-lg font-medium mb-2">Email</h4>
-              <p className="text-techGray">info@techvision.com</p>
+              <p className="text-techGray">iaxionix52@gmail.com</p>
             </div>
             
             <div className="glass-morphism rounded-2xl p-6 flex flex-col items-center text-center">
-              <Phone className="text-techGreen mb-4" size={32} />
+              <Phone className="text-techPurple mb-4" size={32} />
               <h4 className="text-white text-lg font-medium mb-2">Phone</h4>
               <p className="text-techGray">+1 (555) 123-4567</p>
             </div>
             
             <div className="glass-morphism rounded-2xl p-6 flex flex-col items-center text-center">
-              <MapPin className="text-techGreen mb-4" size={32} />
+              <MapPin className="text-techPurple mb-4" size={32} />
               <h4 className="text-white text-lg font-medium mb-2">Address</h4>
               <p className="text-techGray">123 Tech Street, AI Valley, CA 94025</p>
             </div>

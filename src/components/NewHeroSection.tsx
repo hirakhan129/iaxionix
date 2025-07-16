@@ -24,7 +24,7 @@ const NewHeroSection = () => {
           
           <div className="flex flex-wrap gap-4 mt-6">
             <Button 
-              className="bg-techGreen hover:bg-techGreen/90 text-black font-medium text-lg px-8 py-6"
+              className="bg-techPurple hover:bg-techPurple/90 text-white font-medium text-lg px-8 py-6"
               size="lg"
             >
               Free Consultancy
@@ -49,7 +49,7 @@ const NewHeroSection = () => {
         >
           <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px]">
             {/* Circular image with border */}
-            <div className="w-full h-full rounded-full overflow-hidden border-4 border-techGreen/30 shadow-lg">
+            <div className="w-full h-full rounded-full overflow-hidden border-4 border-techPurple/30 shadow-lg">
               <img 
                 src="/lovable-uploads/9d7a6fe4-ec64-46a9-bbee-59fe576280e6.png" 
                 alt="Business planning and strategy session" 
@@ -57,8 +57,8 @@ const NewHeroSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-full mix-blend-overlay"></div>
             </div>
-            {/* Green glow effect */}
-            <div className="absolute -inset-4 bg-techGreen/20 rounded-full blur-xl -z-10"></div>
+            {/* Purple glow effect */}
+            <div className="absolute -inset-4 bg-techPurple/20 rounded-full blur-xl -z-10"></div>
           </div>
         </motion.div>
       </div>
