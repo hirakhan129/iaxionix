@@ -1,0 +1,166 @@
+
+import { Mail, Phone, MapPin, Calendar, Video } from 'lucide-react';
+import ContactForm from './ContactForm';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+
+const timeSlots = ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00"];
+
+const ContactSection = () => {
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
+  const [meetingType, setMeetingType] = useState('video');
+
+  const handleScheduleMeeting = () => {
+    console.log('Meeting scheduled:', { selectedDate, selectedTimeSlot, meetingType });
+    // Reset form
+    setSelectedDate('');
+    setSelectedTimeSlot('');
+  };
+
+  return (
+    <section id="contact" className="section-spacing bg-black">
+      <div className="container mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Let's Build Your AI Future Together!</h2>
+          <p className="text-techGray max-w-2xl mx-auto">
+            Have a question, want to book a meeting, or need assistance? Our team is here to help. 
+            Reach out today, and let's explore how we can bring AI to your business.
+          </p>
+        </div>
+
+        <ContactForm />
+
+        {/* Book a Meeting Section */}
+        <div className="mt-20 mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">Book a Meeting with Us</h2>
+          <p className="text-techGray text-center max-w-2xl mx-auto mb-12">
+            Schedule a time that works for you, and let's discuss how AI can transform your business.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Left Card - Select Date & Time */}
+            <div className="glass-morphism rounded-2xl p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <Calendar className="text-techGreen" size={24} />
+                <h3 className="text-2xl font-bold text-white">Select Date & Time</h3>
+              </div>
+              
+              <div className="mb-6">
+                <label htmlFor="meeting-date" className="block text-techGray mb-2">Preferred Date</label>
+                <div className="relative">
+                  <input
+                    type="date"
+                    id="meeting-date"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className="w-full bg-black/40 border border-techGreen/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techGreen transition-colors"
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-techGray mb-2">Available Time Slots</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {timeSlots.map((time) => (
+                    <button
+                      key={time}
+                      className={cn(
+                        "py-2 px-4 rounded-md border border-techGreen/30 transition-colors",
+                        selectedTimeSlot === time
+                          ? "bg-techGreen text-black font-medium"
+                          : "bg-black/40 text-white hover:border-techGreen"
+                      )}
+                      onClick={() => setSelectedTimeSlot(time)}
+                    >
+                      {time}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Card - Meeting Details */}
+            <div className="glass-morphism rounded-2xl p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <Phone className="text-techGreen" size={24} />
+                <h3 className="text-2xl font-bold text-white">Meeting Details</h3>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div 
+                  className={cn(
+                    "p-4 rounded-md border transition-colors cursor-pointer flex items-start gap-4",
+                    meetingType === 'video' 
+                      ? "border-techGreen bg-techGreen/10" 
+                      : "border-techGreen/30 bg-black/40 hover:border-techGreen/50"
+                  )}
+                  onClick={() => setMeetingType('video')}
+                >
+                  <Video size={24} className={meetingType === 'video' ? "text-techGreen" : "text-techGray"} />
+                  <div>
+                    <h4 className={cn("font-medium", meetingType === 'video' ? "text-techGreen" : "text-white")}>Video Call</h4>
+                    <p className="text-techGray text-sm">Meet via Google Meet or Zoom</p>
+                  </div>
+                </div>
+
+                <div 
+                  className={cn(
+                    "p-4 rounded-md border transition-colors cursor-pointer flex items-start gap-4",
+                    meetingType === 'phone' 
+                      ? "border-techGreen bg-techGreen/10" 
+                      : "border-techGreen/30 bg-black/40 hover:border-techGreen/50"
+                  )}
+                  onClick={() => setMeetingType('phone')}
+                >
+                  <Phone size={24} className={meetingType === 'phone' ? "text-techGreen" : "text-techGray"} />
+                  <div>
+                    <h4 className={cn("font-medium", meetingType === 'phone' ? "text-techGreen" : "text-white")}>Phone Call</h4>
+                    <p className="text-techGray text-sm">Traditional phone consultation</p>
+                  </div>
+                </div>
+              </div>
+
+              <Button 
+                onClick={handleScheduleMeeting}
+                disabled={!selectedDate || !selectedTimeSlot}
+                className="w-full bg-gradient-to-r from-techGreen to-techDarkGreen hover:opacity-90 text-black font-medium"
+              >
+                Schedule Meeting
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-20">
+          <h3 className="text-3xl font-bold text-white text-center mb-8">Prefer to Reach Out Directly?</h3>
+          <p className="text-techGray text-center mb-12">Connect with us through any of these channels</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="glass-morphism rounded-2xl p-6 flex flex-col items-center text-center">
+              <Mail className="text-techGreen mb-4" size={32} />
+              <h4 className="text-white text-lg font-medium mb-2">Email</h4>
+              <p className="text-techGray">info@techvision.com</p>
+            </div>
+            
+            <div className="glass-morphism rounded-2xl p-6 flex flex-col items-center text-center">
+              <Phone className="text-techGreen mb-4" size={32} />
+              <h4 className="text-white text-lg font-medium mb-2">Phone</h4>
+              <p className="text-techGray">+1 (555) 123-4567</p>
+            </div>
+            
+            <div className="glass-morphism rounded-2xl p-6 flex flex-col items-center text-center">
+              <MapPin className="text-techGreen mb-4" size={32} />
+              <h4 className="text-white text-lg font-medium mb-2">Address</h4>
+              <p className="text-techGray">123 Tech Street, AI Valley, CA 94025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;

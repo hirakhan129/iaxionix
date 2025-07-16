@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 120 61% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 120 61% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 61% 50%;
+    --input: 0 0% 20%;
+    --ring: 120 61% 50%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-techBlack text-techGray font-['Poppins',sans-serif] antialiased;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer utilities {
+  .glass-morphism {
+    @apply bg-black/60 backdrop-blur-md border border-techGreen/50 shadow-lg;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(50,205,50,0.5)];
+  }
+
+  .section-spacing {
+    @apply py-20 px-4 md:px-8 lg:px-12;
+  }
+  
+  .bg-radial-gradient {
+    background: radial-gradient(circle at center, var(--tw-gradient-from) 0%, var(--tw-gradient-via) 45%, var(--tw-gradient-to) 100%);
+  }
+  
+  .aurora-dot-effect {
+    background-image: radial-gradient(circle at 50% 50%, #32CD32 1%, transparent 1%);
+    background-size: 20px 20px;
+    opacity: 0.15;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease forwards;
+  }
+  
+  .shadow-glow {
+    box-shadow: 0 0 25px 10px rgba(50, 205, 50, 0.2);
+  }
+  
+  .max-w-container {
+    max-width: 1200px;
+  }
+  
+  .fade-top-lg {
+    background: linear-gradient(to bottom, rgba(50, 205, 50, 0.2), transparent);
+  }
+  
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+  
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+  
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+  
+  .delay-500 {
+    animation-delay: 0.5s;
+  }
+  
+  .delay-700 {
+    animation-delay: 0.7s;
+  }
+  
+  .bg-purple-gradient {
+    background: linear-gradient(to right, #8b5cf6, #d946ef);
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -100% 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+    background-image: linear-gradient(
+      to right,
+      rgba(50, 205, 50, 0.1) 0%,
+      rgba(50, 205, 50, 0.3) 20%,
+      rgba(50, 205, 50, 0.1) 40%,
+      rgba(50, 205, 50, 0.1) 100%
+    );
+    background-size: 200% 100%;
+  }
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #32CD32;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #28A428;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
