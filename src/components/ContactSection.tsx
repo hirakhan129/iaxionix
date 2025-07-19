@@ -1,22 +1,42 @@
-
 import { Mail, Phone, MapPin, Calendar, Video } from 'lucide-react';
 import ContactForm from './ContactForm';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 const timeSlots = ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00"];
 
-const ContactSection = () => {
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
-  const [meetingType, setMeetingType] = useState('video');
+const bookingSchema = z.object({
+  meetingDate: z.string().min(1, { message: "Please select a meeting date" }),
+  timeSlot: z.string().min(1, { message: "Please select a time slot" }),
+  meetingType: z.enum(['video', 'phone'], { required_error: "Please select a meeting type" }),
+});
 
-  const handleScheduleMeeting = () => {
-    console.log('Meeting scheduled:', { selectedDate, selectedTimeSlot, meetingType });
-    // Reset form
-    setSelectedDate('');
-    setSelectedTimeSlot('');
+type BookingData = z.infer<typeof bookingSchema>;
+
+const ContactSection = () => {
+  const { toast } = useToast();
+  const form = useForm<BookingData>({
+    resolver: zodResolver(bookingSchema),
+    defaultValues: {
+      meetingDate: '',
+      timeSlot: '',
+      meetingType: 'video'
+    }
+  });
+
+  const onSubmitBooking = (data: BookingData) => {
+    console.log('Meeting scheduled:', data);
+    toast({
+      title: "Meeting Scheduled Successfully!",
+      description: `Your ${data.meetingType} meeting is scheduled for ${data.meetingDate} at ${data.timeSlot}. We'll send you a confirmation email shortly.`,
+    });
+    form.reset();
   };
 
   return (
@@ -39,99 +59,126 @@ const ContactSection = () => {
             Schedule a time that works for you, and let's discuss how AI can transform your business.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Left Card - Select Date & Time */}
-            <div className="glass-morphism rounded-2xl p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <Calendar className="text-techPurple" size={24} />
-                <h3 className="text-2xl font-bold text-white">Select Date & Time</h3>
-              </div>
-              
-              <div className="mb-6">
-                <label htmlFor="meeting-date" className="block text-techGray mb-2">Preferred Date</label>
-                <div className="relative">
-                  <input
-                    type="date"
-                    id="meeting-date"
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-full bg-black/40 border border-techPurple/30 rounded-md px-4 py-3 text-white focus:outline-none focus:border-techPurple transition-colors"
-                    required
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmitBooking)}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {/* Left Card - Select Date & Time */}
+                <div className="glass-morphism rounded-2xl p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Calendar className="text-techPurple" size={24} />
+                    <h3 className="text-2xl font-bold text-white">Select Date & Time</h3>
+                  </div>
+                  
+                  <FormField
+                    control={form.control}
+                    name="meetingDate"
+                    render={({ field }) => (
+                      <FormItem className="mb-6">
+                        <FormLabel className="text-techGray">Preferred Date</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="date"
+                            className="bg-black/40 border border-techPurple/30 text-white focus:border-techPurple"
+                            min={new Date().toISOString().split('T')[0]}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="timeSlot"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-techGray">Available Time Slots</FormLabel>
+                        <div className="grid grid-cols-3 gap-2 mt-2">
+                          {timeSlots.map((time) => (
+                            <button
+                              key={time}
+                              type="button"
+                              className={cn(
+                                "py-2 px-4 rounded-md border border-techPurple/30 transition-colors",
+                                field.value === time
+                                  ? "bg-techPurple text-white font-medium"
+                                  : "bg-black/40 text-white hover:border-techPurple"
+                              )}
+                              onClick={() => field.onChange(time)}
+                            >
+                              {time}
+                            </button>
+                          ))}
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
                 </div>
-              </div>
-              
-              <div>
-                <label className="block text-techGray mb-2">Available Time Slots</label>
-                <div className="grid grid-cols-3 gap-2">
-                  {timeSlots.map((time) => (
-                    <button
-                      key={time}
-                      className={cn(
-                        "py-2 px-4 rounded-md border border-techPurple/30 transition-colors",
-                        selectedTimeSlot === time
-                          ? "bg-techPurple text-white font-medium"
-                          : "bg-black/40 text-white hover:border-techPurple"
-                      )}
-                      onClick={() => setSelectedTimeSlot(time)}
-                    >
-                      {time}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
 
-            {/* Right Card - Meeting Details */}
-            <div className="glass-morphism rounded-2xl p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <Phone className="text-techPurple" size={24} />
-                <h3 className="text-2xl font-bold text-white">Meeting Details</h3>
-              </div>
-
-              <div className="space-y-4 mb-6">
-                <div 
-                  className={cn(
-                    "p-4 rounded-md border transition-colors cursor-pointer flex items-start gap-4",
-                    meetingType === 'video' 
-                      ? "border-techPurple bg-techPurple/10" 
-                      : "border-techPurple/30 bg-black/40 hover:border-techPurple/50"
-                  )}
-                  onClick={() => setMeetingType('video')}
-                >
-                  <Video size={24} className={meetingType === 'video' ? "text-techPurple" : "text-techGray"} />
-                  <div>
-                    <h4 className={cn("font-medium", meetingType === 'video' ? "text-techPurple" : "text-white")}>Video Call</h4>
-                    <p className="text-techGray text-sm">Meet via Google Meet or Zoom</p>
+                {/* Right Card - Meeting Details */}
+                <div className="glass-morphism rounded-2xl p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Phone className="text-techPurple" size={24} />
+                    <h3 className="text-2xl font-bold text-white">Meeting Details</h3>
                   </div>
-                </div>
 
-                <div 
-                  className={cn(
-                    "p-4 rounded-md border transition-colors cursor-pointer flex items-start gap-4",
-                    meetingType === 'phone' 
-                      ? "border-techPurple bg-techPurple/10" 
-                      : "border-techPurple/30 bg-black/40 hover:border-techPurple/50"
-                  )}
-                  onClick={() => setMeetingType('phone')}
-                >
-                  <Phone size={24} className={meetingType === 'phone' ? "text-techPurple" : "text-techGray"} />
-                  <div>
-                    <h4 className={cn("font-medium", meetingType === 'phone' ? "text-techPurple" : "text-white")}>Phone Call</h4>
-                    <p className="text-techGray text-sm">Traditional phone consultation</p>
-                  </div>
+                  <FormField
+                    control={form.control}
+                    name="meetingType"
+                    render={({ field }) => (
+                      <FormItem className="mb-6">
+                        <FormLabel className="text-techGray">Meeting Type</FormLabel>
+                        <div className="space-y-4 mt-2">
+                          <div 
+                            className={cn(
+                              "p-4 rounded-md border transition-colors cursor-pointer flex items-start gap-4",
+                              field.value === 'video' 
+                                ? "border-techPurple bg-techPurple/10" 
+                                : "border-techPurple/30 bg-black/40 hover:border-techPurple/50"
+                            )}
+                            onClick={() => field.onChange('video')}
+                          >
+                            <Video size={24} className={field.value === 'video' ? "text-techPurple" : "text-techGray"} />
+                            <div>
+                              <h4 className={cn("font-medium", field.value === 'video' ? "text-techPurple" : "text-white")}>Video Call</h4>
+                              <p className="text-techGray text-sm">Meet via Google Meet or Zoom</p>
+                            </div>
+                          </div>
+
+                          <div 
+                            className={cn(
+                              "p-4 rounded-md border transition-colors cursor-pointer flex items-start gap-4",
+                              field.value === 'phone' 
+                                ? "border-techPurple bg-techPurple/10" 
+                                : "border-techPurple/30 bg-black/40 hover:border-techPurple/50"
+                            )}
+                            onClick={() => field.onChange('phone')}
+                          >
+                            <Phone size={24} className={field.value === 'phone' ? "text-techPurple" : "text-techGray"} />
+                            <div>
+                              <h4 className={cn("font-medium", field.value === 'phone' ? "text-techPurple" : "text-white")}>Phone Call</h4>
+                              <p className="text-techGray text-sm">Traditional phone consultation</p>
+                            </div>
+                          </div>
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button 
+                    type="submit"
+                    disabled={form.formState.isSubmitting}
+                    className="w-full bg-gradient-to-r from-techPurple to-techDarkPurple hover:opacity-90 text-white font-medium disabled:opacity-50"
+                  >
+                    {form.formState.isSubmitting ? "Scheduling..." : "Schedule Meeting"}
+                  </Button>
                 </div>
               </div>
-
-              <Button 
-                onClick={handleScheduleMeeting}
-                disabled={!selectedDate || !selectedTimeSlot}
-                className="w-full bg-gradient-to-r from-techPurple to-techDarkPurple hover:opacity-90 text-white font-medium"
-              >
-                Schedule Meeting
-              </Button>
-            </div>
-          </div>
+            </form>
+          </Form>
         </div>
 
         <div className="mt-20">
